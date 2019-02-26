@@ -1,7 +1,6 @@
 package com.smooth.systems.solutions.smtp.mock.sink;
 
 import com.smooth.systems.solutions.smtp.mock.api.MailMessage;
-import com.smooth.systems.solutions.smtp.mock.sink.MailSink;
 import com.smooth.systems.solutions.smtp.mock.utils.MailMessageMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.configuration.Configuration;

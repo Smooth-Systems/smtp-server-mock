@@ -28,4 +28,8 @@ public class MailSink {
 		}
 		return null;
 	}
+
+	public List<MailMessage> getMailMessages() {
+		return messages;
+	}
 }

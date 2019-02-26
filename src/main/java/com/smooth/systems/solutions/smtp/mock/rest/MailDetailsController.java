@@ -21,7 +21,8 @@ public class MailDetailsController {
 
 	@GetMapping("/email-details")
 	public List<MailMessage> getMailDetails() {
-		List<MailMessage> emails = Collections.emptyList();
+		List<MailMessage> emails = mailSink.getMailMessages();
+//		List<MailMessage> emails = Collections.emptyList();
 		log.info("Retrieved {} emails.", emails.size());
 		return emails;
 	}
