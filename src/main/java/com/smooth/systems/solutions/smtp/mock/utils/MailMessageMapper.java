@@ -22,7 +22,7 @@ public final class MailMessageMapper {
 
 	public static MailMessage mapMessage(MailEnvelope mail) {
 
-		MailMessageImpl.MailMessageImplBuilder builder = MailMessageImpl.builder();
+		MailMessage.MailMessageBuilder builder = MailMessage.builder();
 		builder.size(mail.getSize());
 		builder.smtpSender(mail.getSender().asString());
 		builder.smtpRecipients(mail.getRecipients().stream().map(rcpt -> rcpt.asString()).collect(Collectors.toList()));
@@ -32,7 +32,6 @@ public final class MailMessageMapper {
 			builder.mailId(msg.getMessageID());
 			builder.subject(msg.getSubject());
 			builder.sentDate(msg.getSentDate());
-//			builder.receivedDate(msg.getReceivedDate());
 			builder.contentId(msg.getContentID());
 			builder.contentType(msg.getContentType());
 			builder.receivedDate(Calendar.getInstance().getTime());
@@ -53,27 +52,6 @@ public final class MailMessageMapper {
 		}
 		// TODO validate
 		return address.toString();
-	}
-
-	@Data
-	@Builder
-	private static class MailMessageImpl implements MailMessage {
-
-		private long size;
-		private String smtpSender;
-		private List<String> smtpRecipients;
-
-		private String mailId;
-		private String subject;
-		private Date sentDate;
-		private Date receivedDate;
-		private String contentId;
-		private String contentType;
-
-		private String sender;
-		private List<String> from;
-		private List<String> replyTo;
-		private List<String> recipients;
 	}
 
 	private static List<String> convertAddressArray(Address[] addresses) {

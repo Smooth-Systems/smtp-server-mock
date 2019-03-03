@@ -15,33 +15,35 @@ import java.util.List;
 @RestController
 public class MailDetailsController {
 
+	public static final String SERVICE_PREFIX = "/email-details";
+
 	@Autowired
 	private MailSink mailSink;
 
-	@RequestMapping("/email-details")
-	public List<MailMessage> getMailDetails() {
+	@RequestMapping(SERVICE_PREFIX)
+	public MailMessageList getMailDetails() {
 		List<MailMessage> emails = mailSink.getMailMessages();
 		log.info("Retrieved {} emails.", emails.size());
-		return emails;
+		return new MailMessageList(emails);
 	}
 
-	@RequestMapping("/email-details/mail-id/{mailId}")
+	@RequestMapping(SERVICE_PREFIX + "/mail-id/{mailId}")
 	public MailMessage getMailDetailsForMailId(@PathVariable("mailId") String mailId) {
 		log.info("getMailDetailsForMailId({})", mailId);
 		MailMessage mailMessage = mailSink.getByMailId(mailId);
 		return validateAndReturn(mailMessage, "mailId", mailId);
 	}
 
-	@RequestMapping("/email-details/smtp-sender/{from}")
-	public List<MailMessage> getMailDetailsFromMailAddress(@PathVariable("from") String from) {
+	@RequestMapping(SERVICE_PREFIX + "/smtp-sender/{from}")
+	public MailMessageList getMailDetailsFromMailAddress(@PathVariable("from") String from) {
 		log.info("getMailDetailsFromMailAddress({})", from);
-		return mailSink.getBySmtpSender(from);
+		return new MailMessageList(mailSink.getBySmtpSender(from));
 	}
 
-	@RequestMapping("/email-details/smtp-to/{to}")
-	public List<MailMessage> getMailDetailsToReceipent(@PathVariable("to") String to) {
+	@RequestMapping(SERVICE_PREFIX + "/smtp-to/{to}")
+	public MailMessageList getMailDetailsToReceipent(@PathVariable("to") String to) {
 		log.info("getMailDetailsToReceipent({})", to);
-		return mailSink.getBySmtpRecepient(to);
+		return new MailMessageList(mailSink.getBySmtpRecepient(to));
 	}
 
 	private MailMessage validateAndReturn(MailMessage mailMessage, String varName, String value) {

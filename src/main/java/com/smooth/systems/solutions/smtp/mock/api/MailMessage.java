@@ -1,21 +1,28 @@
 package com.smooth.systems.solutions.smtp.mock.api;
 
-import javax.mail.internet.MimeMessage;
+import lombok.Builder;
+import lombok.Data;
+
+import java.util.Date;
 import java.util.List;
 
-public interface MailMessage {
+@Data
+@Builder
+public class MailMessage {
 
-	String getMailId();
+	private long size;
+	private String smtpSender;
+	private List<String> smtpRecipients;
 
-	String getSender();
+	private String mailId;
+	private String subject;
+	private Date sentDate;
+	private Date receivedDate;
+	private String contentId;
+	private String contentType;
 
-	List<String> getRecipients();
-
-	String getSmtpSender();
-
-	List<String> getSmtpRecipients();
-
-	String getSubject();
-
-	long getSize();
+	private String sender;
+	private List<String> from;
+	private List<String> replyTo;
+	private List<String> recipients;
 }
