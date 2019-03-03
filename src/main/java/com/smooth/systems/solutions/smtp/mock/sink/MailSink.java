@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -21,8 +22,8 @@ public class MailSink {
 		messages.add(message);
 	}
 
-	public MailMessage getMailMessage(final String mailId) {
-		Optional<MailMessage> message = messages.stream().filter(mail -> mailId.equals(mail.getMessageId())).findFirst();
+	public MailMessage getByMailId(final String mailId) {
+		Optional<MailMessage> message = messages.stream().filter(mail -> mailId.equals(mail.getMailId())).findFirst();
 		if (message.isPresent()) {
 			return message.get();
 		}
@@ -31,5 +32,13 @@ public class MailSink {
 
 	public List<MailMessage> getMailMessages() {
 		return messages;
+	}
+
+	public List<MailMessage> getBySmtpSender(String from) {
+		return messages.stream().filter(mail -> from.equals(mail.getSmtpSender())).collect(Collectors.toList());
+	}
+
+	public List<MailMessage> getBySmtpRecepient(String to) {
+		return messages.stream().filter(mail -> mail.getRecipients().contains(to)).collect(Collectors.toList());
 	}
 }

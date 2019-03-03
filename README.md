@@ -8,6 +8,23 @@ Simple SMTP Server Mock using Apache James (Netty) and Spring Boot for testing p
 mvn spring-boot:run
 ```
 
+The default port to whom the smtp sink is listening is _**10025**_. No authentication is enabled to simplify the testing.
+
+To retrieve a basic set of emails information sent to the smtp sink you can use the REST interface:
+
+```bash
+# Retrieves alle emails sent to the sink
+GET localhost:8010/email-details/smtp-to/real@rgagnon.com
+
+# Retrieves alle emails sent to the sink
+GET localhost:8010/email-details/mail-id/{message-id}
+
+# Retrieves alle emails sent to the sink
+GET localhost:8010/email-details/smtp-sender/{smtp-sender}
+
+# Retrieves alle emails sent to the sink
+GET localhost:8010/email-details/smtp-to/{smtp-recipient}
+```
 
 ## Build and run docker image
 
