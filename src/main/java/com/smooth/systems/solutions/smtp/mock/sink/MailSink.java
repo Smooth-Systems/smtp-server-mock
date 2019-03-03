@@ -39,6 +39,6 @@ public class MailSink {
 	}
 
 	public List<MailMessage> getBySmtpRecepient(String to) {
-		return messages.stream().filter(mail -> mail.getRecipients().contains(to)).collect(Collectors.toList());
+		return messages.stream().filter(mail -> mail.getSmtpRecipients().contains(to)).collect(Collectors.toList());
 	}
 }

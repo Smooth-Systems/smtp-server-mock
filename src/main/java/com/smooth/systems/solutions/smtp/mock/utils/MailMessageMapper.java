@@ -12,6 +12,8 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,11 +29,18 @@ public final class MailMessageMapper {
 		try {
 			MimeMessage msg = new MimeMessage(null, mail.getMessageInputStream());
 
-			builder.sender(convertAddress(msg.getSender()));
-			List<Address> addresses = Arrays.asList(msg.getRecipients(Message.RecipientType.TO));
-			builder.recipients(addresses.stream().map(MailMessageMapper::convertAddress).collect(Collectors.toList()));
-			builder.subject(msg.getSubject());
 			builder.mailId(msg.getMessageID());
+			builder.subject(msg.getSubject());
+			builder.sentDate(msg.getSentDate());
+//			builder.receivedDate(msg.getReceivedDate());
+			builder.contentId(msg.getContentID());
+			builder.contentType(msg.getContentType());
+			builder.receivedDate(Calendar.getInstance().getTime());
+
+			builder.from(convertAddressArray(msg.getFrom()));
+			builder.sender(convertAddress(msg.getSender()));
+			builder.recipients(convertAddressArray(msg.getRecipients(Message.RecipientType.TO)));
+			builder.replyTo(convertAddressArray(msg.getReplyTo()));
 		} catch(IOException | MessagingException e) {
 			log.error("Unable to read email. Reason: {}", e.getMessage(), e);
 		}
@@ -56,7 +65,19 @@ public final class MailMessageMapper {
 
 		private String mailId;
 		private String subject;
+		private Date sentDate;
+		private Date receivedDate;
+		private String contentId;
+		private String contentType;
+
 		private String sender;
+		private List<String> from;
+		private List<String> replyTo;
 		private List<String> recipients;
+	}
+
+	private static List<String> convertAddressArray(Address[] addresses) {
+		List<Address> addressesList = Arrays.asList(addresses);
+		return addressesList.stream().map(MailMessageMapper::convertAddress).collect(Collectors.toList());
 	}
 }

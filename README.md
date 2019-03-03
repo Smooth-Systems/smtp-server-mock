@@ -14,16 +14,16 @@ To retrieve a basic set of emails information sent to the smtp sink you can use 
 
 ```bash
 # Retrieves alle emails sent to the sink
-GET localhost:8010/email-details/smtp-to/real@rgagnon.com
+GET http://localhost:8010/email-details/smtp-to/real@rgagnon.com
 
 # Retrieves alle emails sent to the sink
-GET localhost:8010/email-details/mail-id/{message-id}
+GET http://localhost:8010/email-details/mail-id/{message-id}
 
 # Retrieves alle emails sent to the sink
-GET localhost:8010/email-details/smtp-sender/{smtp-sender}
+GET http://localhost:8010/email-details/smtp-sender/{smtp-sender}
 
 # Retrieves alle emails sent to the sink
-GET localhost:8010/email-details/smtp-to/{smtp-recipient}
+GET http://localhost:8010/email-details/smtp-to/{smtp-recipient}
 ```
 
 ## Build and run docker image
