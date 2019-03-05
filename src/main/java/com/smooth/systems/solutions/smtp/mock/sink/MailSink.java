@@ -16,8 +16,8 @@ public class MailSink {
 	private List<MailMessage> messages = new ArrayList<>();
 
 	public void appendMailMessage(MailMessage message) {
-		log.info("mail from={}, to={}, subject={}, size={}", message.getSender(), message.getRecipients(),
-						message.getSubject(), message.getSize());
+		log.info("Mail: mailId={}, smtpFrom={}, smtpTo={}", message.getMailId(), message.getSmtpSender(), message.getSmtpRecipients());
+		log.info("      from={}, to={}, subject={}, size={}", message.getSender(), message.getRecipients(), message.getSubject(), message.getSize());
 		// TODO check if message with id already exists
 		messages.add(message);
 	}

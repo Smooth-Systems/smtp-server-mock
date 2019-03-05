@@ -6,7 +6,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-public class RestClientMessagesDetails {
+public class EmailsDetailsSinkClient {
 
 	private static String PREFIX_MSG_DETAILS = "/email-details";
 
@@ -14,7 +14,7 @@ public class RestClientMessagesDetails {
 
 	private RestClientConfiguration config;
 
-	public RestClientMessagesDetails(RestClientConfiguration config) {
+	public EmailsDetailsSinkClient(RestClientConfiguration config) {
 		this.config = config;
 	}
 

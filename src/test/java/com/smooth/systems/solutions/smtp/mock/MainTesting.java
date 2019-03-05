@@ -2,7 +2,7 @@ package com.smooth.systems.solutions.smtp.mock;
 
 import com.smooth.systems.solutions.smtp.mock.api.MailMessage;
 import com.smooth.systems.solutions.smtp.mock.client.RestClientConfiguration;
-import com.smooth.systems.solutions.smtp.mock.client.RestClientMessagesDetails;
+import com.smooth.systems.solutions.smtp.mock.client.EmailsDetailsSinkClient;
 
 import java.util.Collections;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
 public class MainTesting {
 
 	public static void main(String[] args) {
-		RestClientMessagesDetails client = new RestClientMessagesDetails(new RestClientConfiguration());
+		EmailsDetailsSinkClient client = new EmailsDetailsSinkClient(new RestClientConfiguration());
 
 		System.out.println("\nRetrieve all emails details:");
 		List<MailMessage> messages = client.getAllMessages();
